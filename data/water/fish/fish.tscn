@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://bjeuc81pegtxy"]
+
+[ext_resource type="Script" path="res://data/water/fish/fish.gd" id="1_6e5gk"]
+[ext_resource type="Script" path="res://data/state_machine/state_machine.gd" id="2_mmepd"]
+[ext_resource type="Script" path="res://data/water/fish/idle.gd" id="3_orck6"]
+[ext_resource type="Script" path="res://data/water/fish/running.gd" id="4_48cre"]
+[ext_resource type="Texture2D" uid="uid://11xlagd4a5w8" path="res://data/player/fish.png" id="5_73kda"]
+[ext_resource type="AudioStream" uid="uid://bw4d5p0h3thcp" path="res://data/sfx/fish.wav" id="6_gg1gm"]
+
+[sub_resource type="Gradient" id="Gradient_ooq0m"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ujoyh"]
+gradient = SubResource("Gradient_ooq0m")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5umvi"]
+size = Vector2(48, 48)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mmkr8"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("6_gg1gm")
+stream_0/weight = 1.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_6e5gk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-12, 2.188)
+scale = Vector2(0.9375, 0.4375)
+texture = SubResource("GradientTexture2D_ujoyh")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-19, -13.312)
+scale = Vector2(0.421, 0.334)
+texture = SubResource("GradientTexture2D_ujoyh")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(19, 3.188)
+scale = Vector2(0.581813, 0.579594)
+texture = SubResource("GradientTexture2D_ujoyh")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_5umvi")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("2_mmepd")
+body = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_orck6")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("4_48cre")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 3.0
+one_shot = true
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+texture = ExtResource("5_73kda")
+
+[node name="Squeal" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_mmkr8")
+volume_db = -4.0
+
+[connection signal="area_entered" from="Area2D" to="StateMachine/Idle" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="StateMachine/Running" method="_on_area_2d_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

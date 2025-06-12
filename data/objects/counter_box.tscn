@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://x8o2b3awdpic"]
+
+[ext_resource type="Texture2D" uid="uid://carjmu522tv1n" path="res://data/objects/5.svg" id="1_hssbo"]
+[ext_resource type="Script" path="res://data/objects/counter_box.gd" id="2_dctsk"]
+[ext_resource type="FontFile" uid="uid://2di73dx7uxpm" path="res://data/player/Slabo_27px/Slabo27px-Regular.ttf" id="3_jfcjl"]
+[ext_resource type="PackedScene" uid="uid://cptflw41chw8o" path="res://data/keybind/keybind.tscn" id="3_ofnwk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_keb1b"]
+
+[node name="CounterBox" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.08889, 0.589522, -1.76115)
+pixel_size = 0.008
+billboard = 1
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("1_hssbo")
+script = ExtResource("2_dctsk")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.881169, 0.306449, 0.0740676)
+billboard = 1
+modulate = Color(0.904174, 0.699505, 0.445931, 1)
+outline_modulate = Color(0.373821, 0.190435, 0.0132245, 1)
+text = "???"
+font = ExtResource("3_jfcjl")
+font_size = 64
+
+[node name="Area3D2" type="Area3D" parent="." groups=["count"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15522, -0.589522, 0.161266)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+shape = SubResource("BoxShape3D_keb1b")
+
+[node name="Keybind" parent="." instance=ExtResource("3_ofnwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.896827, 0.568992, 0.582456)
+text = "A"
+
+[connection signal="area_entered" from="Area3D2" to="." method="_on_area_entered"]
+[connection signal="area_exited" from="Area3D2" to="." method="_on_area_exited"]

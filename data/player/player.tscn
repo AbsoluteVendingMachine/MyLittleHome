@@ -1,0 +1,480 @@
+[gd_scene load_steps=42 format=3 uid="uid://dxhoaanh45pev"]
+
+[ext_resource type="Script" path="res://data/player/player.gd" id="1_3j38m"]
+[ext_resource type="Script" path="res://data/state_machine/state_machine.gd" id="1_i32av"]
+[ext_resource type="PackedScene" uid="uid://djuxqapvvtpl7" path="res://data/player/player.blend" id="2_6td8r"]
+[ext_resource type="PackedScene" uid="uid://dami1yui5ni7p" path="res://data/outside/wood.blend" id="2_cjy05"]
+[ext_resource type="Script" path="res://data/player/idle.gd" id="2_utkph"]
+[ext_resource type="Script" path="res://data/player/walking.gd" id="3_8by6m"]
+[ext_resource type="Script" path="res://data/player/holding_log.gd" id="4_fn64x"]
+[ext_resource type="PackedScene" uid="uid://dn086cowputpa" path="res://data/to_do/to_do.tscn" id="4_olpjt"]
+[ext_resource type="PackedScene" uid="uid://od3m50hb54t1" path="res://data/player/axe.tscn" id="4_px6ik"]
+[ext_resource type="Texture2D" uid="uid://bb4k7piblf8xh" path="res://data/player/fishing_rod.png" id="4_ua3cx"]
+[ext_resource type="Script" path="res://data/player/chopping_log.gd" id="6_4m05y"]
+[ext_resource type="Script" path="res://data/player/fishing.gd" id="7_jji0d"]
+[ext_resource type="Script" path="res://data/water/cursor.gd" id="7_k55an"]
+[ext_resource type="Script" path="res://data/player/counting.gd" id="9_vtmul"]
+[ext_resource type="Script" path="res://data/player/exiting_to_outside.gd" id="10_m0l18"]
+[ext_resource type="Script" path="res://data/player/exiting_to_inside.gd" id="11_1c0d2"]
+[ext_resource type="Texture2D" uid="uid://cx8730lk6y870" path="res://data/player/hook.png" id="11_rcvd7"]
+[ext_resource type="Texture2D" uid="uid://cn5r06fabqvbe" path="res://data/outside/water.png" id="11_urxq7"]
+[ext_resource type="Texture2D" uid="uid://c667hs1c5tj1e" path="res://data/player/target.png" id="11_xerj2"]
+[ext_resource type="Texture2D" uid="uid://c35ayfiyyqd42" path="res://data/player/crosshair.png" id="12_novof"]
+[ext_resource type="Texture2D" uid="uid://dvy05pe1prx7m" path="res://data/player/day_timer_hud.png" id="19_0eo08"]
+[ext_resource type="Texture2D" uid="uid://3tji4fobhrnc" path="res://data/player/time_cycle.png" id="19_a4xua"]
+[ext_resource type="Texture2D" uid="uid://dh6cgxt2wd2ey" path="res://data/player/counter.png" id="19_a7ycf"]
+[ext_resource type="Texture2D" uid="uid://csi4uv1llv2dn" path="res://data/player/day_timer_hud_front.png" id="21_vbu86"]
+[ext_resource type="Theme" uid="uid://3yh3abufhfub" path="res://data/text_theme.tres" id="22_osu8l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pdacn"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="Animation" id="Animation_62yip"]
+resource_name = "Minigame1"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitter:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(16, 272), Vector2(304, 272)]
+}
+
+[sub_resource type="Animation" id="Animation_v80eq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitter:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 240)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1h5rh"]
+_data = {
+"Minigame1": SubResource("Animation_62yip"),
+"RESET": SubResource("Animation_v80eq")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k72mm"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfvmc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xgnt2"]
+size = Vector2(32, 32)
+
+[sub_resource type="Gradient" id="Gradient_1s84n"]
+offsets = PackedFloat32Array(0.792735, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3d2p7"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sbfaq"]
+width = 48
+height = 48
+color_ramp = SubResource("Gradient_1s84n")
+noise = SubResource("FastNoiseLite_3d2p7")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bvvr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e3mx3"]
+size = Vector3(0.75, 1, 0.75)
+
+[sub_resource type="Animation" id="Animation_7vnhe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-3.14159]
+}
+
+[sub_resource type="Animation" id="Animation_ch78i"]
+resource_name = "Timer"
+length = 90.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 90, 91),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 4.71239, 3.14159]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_njdu3"]
+_data = {
+"RESET": SubResource("Animation_7vnhe"),
+"Timer": SubResource("Animation_ch78i")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t0imd"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.364706)
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["player_body"]]
+script = ExtResource("1_3j38m")
+camera_positions = [Vector3(4, 4.724, 2.3), Vector3(5.97, 4.724, 3.688)]
+metadata/_edit_horizontal_guides_ = [216.0, 390.0, 416.0, 160.0]
+metadata/_edit_vertical_guides_ = [136.0, 184.0, 288.0, 32.0]
+
+[node name="wood" parent="." instance=ExtResource("2_cjy05")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.476355, 0)
+visible = false
+
+[node name="player" parent="." instance=ExtResource("2_6td8r")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="Skeleton3D" parent="player/Armature" index="0"]
+bones/3/rotation = Quaternion(0.398315, 0, 0, 0.917249)
+bones/4/rotation = Quaternion(-0.398315, 0, 0, 0.917249)
+bones/5/rotation = Quaternion(0, 0, -0.707107, 0.707107)
+bones/6/rotation = Quaternion(0, 0, -0.707107, 0.707107)
+bones/7/rotation = Quaternion(0.5, 0.5, -0.5, 0.5)
+bones/8/rotation = Quaternion(0.654781, 0.266948, -0.654781, 0.266948)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(0.707107, -7.20314e-08, -0.707107, -7.53644e-15)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(0.665534, -0.238883, -0.665534, -0.238883)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/rotation = Quaternion(0.707107, -7.20314e-08, -0.707107, -7.53644e-15)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/position = Vector3(0.0738122, 0.674737, 0.544973)
+bones/12/rotation = Quaternion(0.661758, -0.249151, -0.661758, -0.24915)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(0.707107, -7.81625e-08, -0.707107, -8.6279e-10)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/position = Vector3(0.0738122, 0.67211, -0.523458)
+bones/14/rotation = Quaternion(0.683287, 0.347623, -0.615758, 0.181986)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(0.707107, -6.23575e-08, -0.707107, 9.67392e-09)
+bones/15/scale = Vector3(1, 1, 1)
+
+[node name="Cube" parent="player/Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1.3, 0)
+
+[node name="Cone" parent="player/Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.682691, -0.730708, 0, 0.730708, 0.682691, 0.3, 2.1, 0.985109)
+
+[node name="Cone_001" parent="player/Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.682691, 0.730708, 0, -0.730708, 0.682691, 0.3, 2.1, -0.985109)
+
+[node name="Plane" parent="player/Armature/Skeleton3D" index="3"]
+transform = Transform3D(0, 0.613576, 0, -0.613576, 0, 0, 0, 0, 0.613576, 1.30839, 1.3, 0.7)
+
+[node name="Plane_001" parent="player/Armature/Skeleton3D" index="4"]
+transform = Transform3D(0, 0.613576, 0, -0.613576, 0, 0, 0, 0, 0.613576, 1.30839, 1.3, -0.546214)
+
+[node name="Plane_002" parent="player/Armature/Skeleton3D" index="5"]
+transform = Transform3D(0, 0.272688, 0, 0, 0, -0.272688, -0.272688, 0, 0, 1.33451, 0.62, 0.010924)
+
+[node name="Cube_004" parent="player/Armature/Skeleton3D" index="6"]
+transform = Transform3D(0.714955, -0.699171, 7.1223e-08, 0.699171, 0.714955, -1.02633e-07, 0, 1.01868e-07, 1, -0.613847, 0.0146182, 2.55)
+
+[node name="Cube_005" parent="player/Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.77174, 0.635938, 5.44277e-08, -0.635938, 0.77174, -1.08418e-07, 1.19209e-07, 1.01868e-07, 1, 0.594317, 0.16473, 0.95)
+
+[node name="Cube_002" parent="player/Armature/Skeleton3D" index="8"]
+transform = Transform3D(0.751696, 0.65951, 4.03131e-07, -0.65951, 0.751696, 1.2571e-06, 4.76837e-07, -1.22935e-06, 1, 0.848198, 0.966817, 2.28943)
+
+[node name="Cube_003" parent="player/Armature/Skeleton3D" index="9"]
+transform = Transform3D(0.714954, -0.699172, -3.05536e-07, 0.676801, 0.692079, -0.250934, 0.175446, 0.179406, 0.968004, -0.709389, 0.493354, 1.38204)
+
+[node name="Cube_001" parent="player/Armature/Skeleton3D" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.321493, -0.858702, 0)
+
+[node name="FishingRod" type="Sprite3D" parent="player"]
+transform = Transform3D(3.85118, 1.08092, 0, -1.08092, 3.85118, 0, 0, 0, 4, 1.94119, 0.493975, 0)
+visible = false
+texture_filter = 0
+texture = ExtResource("4_ua3cx")
+
+[node name="Axe" parent="player" instance=ExtResource("4_px6ik")]
+transform = Transform3D(1.20767, -2.74619, 0, 2.74619, 1.20767, 0, 0, 0, 3, -1.8056, 3.05329, -0.183774)
+visible = false
+
+[node name="TemporaryModel" type="CSGSphere3D" parent="."]
+visible = false
+radius = 0.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.259705, 0)
+shape = SubResource("BoxShape3D_pdacn")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.5, -0.612372, 0.612373, 0, 0.707107, 0.707106, -0.866025, -0.353553, 0.353554, 4.84526, 4.724, 3.2579)
+projection = 1
+size = 5.0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("1_i32av")
+body = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("2_utkph")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("3_8by6m")
+
+[node name="HoldingLog" type="Node" parent="StateMachine"]
+script = ExtResource("4_fn64x")
+
+[node name="ChoppingLog" type="Node" parent="StateMachine"]
+script = ExtResource("6_4m05y")
+
+[node name="Minigame1" type="CanvasLayer" parent="StateMachine/ChoppingLog"]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/ChoppingLog/Minigame1"]
+libraries = {
+"": SubResource("AnimationLibrary_1h5rh")
+}
+
+[node name="Marker" type="Sprite2D" parent="StateMachine/ChoppingLog/Minigame1"]
+position = Vector2(160, 272)
+texture = ExtResource("11_xerj2")
+
+[node name="Area2D" type="Area2D" parent="StateMachine/ChoppingLog/Minigame1/Marker" groups=["marker"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/ChoppingLog/Minigame1/Marker/Area2D"]
+shape = SubResource("RectangleShape2D_k72mm")
+
+[node name="Hitter" type="Sprite2D" parent="StateMachine/ChoppingLog/Minigame1"]
+position = Vector2(16, 240)
+texture = ExtResource("12_novof")
+
+[node name="Area2D" type="Area2D" parent="StateMachine/ChoppingLog/Minigame1/Hitter" groups=["hitter"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/ChoppingLog/Minigame1/Hitter/Area2D"]
+shape = SubResource("RectangleShape2D_nfvmc")
+
+[node name="Label" type="Label" parent="StateMachine/ChoppingLog/Minigame1"]
+offset_right = 320.0
+offset_bottom = 316.0
+theme = ExtResource("22_osu8l")
+theme_override_constants/shadow_outline_size = 4
+text = "Time your chop!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Fishing" type="Node" parent="StateMachine"]
+script = ExtResource("7_jji0d")
+
+[node name="Minigame2" type="CanvasLayer" parent="StateMachine/Fishing"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="StateMachine/Fishing/Minigame2"]
+position = Vector2(160, 288)
+scale = Vector2(4, 4)
+texture = ExtResource("11_urxq7")
+
+[node name="Cursor" type="Sprite2D" parent="StateMachine/Fishing/Minigame2"]
+z_index = 6
+position = Vector2(160, 288)
+texture = ExtResource("11_rcvd7")
+script = ExtResource("7_k55an")
+
+[node name="Area2D" type="Area2D" parent="StateMachine/Fishing/Minigame2/Cursor" groups=["hitter"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/Fishing/Minigame2/Cursor/Area2D"]
+shape = SubResource("RectangleShape2D_xgnt2")
+
+[node name="Label" type="Label" parent="StateMachine/Fishing/Minigame2"]
+offset_top = -1.0
+offset_right = 320.0
+offset_bottom = 159.0
+theme = ExtResource("22_osu8l")
+theme_override_constants/shadow_outline_size = 4
+text = "Keep your hook on the fish!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Counting" type="Node" parent="StateMachine"]
+script = ExtResource("9_vtmul")
+
+[node name="Minigame3" type="CanvasLayer" parent="StateMachine/Counting"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="StateMachine/Counting/Minigame3"]
+visible = false
+position = Vector2(160, 240)
+texture = SubResource("NoiseTexture2D_sbfaq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="StateMachine/Counting/Minigame3"]
+visible = false
+position = Vector2(160, 366)
+texture = SubResource("NoiseTexture2D_sbfaq")
+
+[node name="Label2" type="Label" parent="StateMachine/Counting/Minigame3"]
+offset_top = 405.0
+offset_right = 320.0
+offset_bottom = 428.0
+theme = ExtResource("22_osu8l")
+theme_override_constants/shadow_outline_size = 4
+text = "Count the amount in the box correctly."
+horizontal_alignment = 1
+
+[node name="Container" type="Container" parent="StateMachine/Counting/Minigame3"]
+offset_left = 136.0
+offset_top = 216.0
+offset_right = 184.0
+offset_bottom = 390.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="StateMachine/Counting/Minigame3"]
+position = Vector2(160, 303)
+texture = ExtResource("19_a7ycf")
+
+[node name="Label" type="Label" parent="StateMachine/Counting/Minigame3"]
+offset_top = 121.0
+offset_right = 320.0
+offset_bottom = 480.0
+theme = ExtResource("22_osu8l")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitingToOutside" type="Node" parent="StateMachine"]
+script = ExtResource("10_m0l18")
+
+[node name="ExitingToInside" type="Node" parent="StateMachine"]
+script = ExtResource("11_1c0d2")
+
+[node name="ToDo" parent="." instance=ExtResource("4_olpjt")]
+offset = Vector2(4, 4)
+transform = Transform2D(1, 0, 0, 1, 4, 4)
+
+[node name="Instruction" type="CanvasLayer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Instruction"]
+sprite_frames = SubResource("SpriteFrames_4bvvr")
+
+[node name="Interaction" type="Area3D" parent="." groups=["player"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interaction"]
+shape = SubResource("BoxShape3D_e3mx3")
+
+[node name="Debug" type="Node3D" parent="."]
+visible = false
+
+[node name="CurrentState" type="Label3D" parent="Debug"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.915047, 0)
+billboard = 1
+text = "State"
+
+[node name="Velocity" type="Label3D" parent="Debug"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743203, 0)
+billboard = 1
+text = "State"
+
+[node name="Direction" type="Label3D" parent="Debug"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57975, 0)
+billboard = 1
+text = "State"
+
+[node name="InsideGroup" type="Label3D" parent="Debug"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.410356, 0)
+billboard = 1
+text = "State"
+
+[node name="DayTimer" type="CanvasLayer" parent="."]
+offset = Vector2(-4, 4)
+transform = Transform2D(1, 0, 0, 1, -4, 4)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DayTimer"]
+libraries = {
+"": SubResource("AnimationLibrary_njdu3")
+}
+
+[node name="Sprite2D2" type="Sprite2D" parent="DayTimer"]
+position = Vector2(256, 32)
+texture = ExtResource("19_0eo08")
+
+[node name="Sprite2D" type="Sprite2D" parent="DayTimer"]
+position = Vector2(288, 32)
+rotation = -3.14159
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("19_a4xua")
+
+[node name="Sprite2D3" type="Sprite2D" parent="DayTimer"]
+position = Vector2(256, 32)
+texture = ExtResource("21_vbu86")
+
+[node name="Label" type="Label" parent="DayTimer"]
+offset_left = 200.0
+offset_top = 23.0
+offset_right = 273.0
+offset_bottom = 46.0
+theme = ExtResource("22_osu8l")
+theme_override_font_sizes/font_size = 14
+text = "Time left:"
+
+[node name="Time" type="Label" parent="DayTimer"]
+offset_left = 257.0
+offset_top = 32.0
+offset_right = 320.0
+offset_bottom = 64.0
+theme = ExtResource("22_osu8l")
+theme_override_font_sizes/font_size = 20
+text = "90"
+horizontal_alignment = 1
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.0924401, 0.0173777, 0.995567, -0.995718, 0.0016133, 0.092426, 0, -0.999848, 0.0174524, 5.6303, 0.063134, 0)
+visible = false
+spot_range = 12.3195
+spot_angle = 31.0808
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.212754, 0)
+radius = 0.232771
+height = 0.035
+material = SubResource("StandardMaterial3D_t0imd")
+
+[node name="Loading" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Label" type="Label" parent="Loading"]
+visible = false
+offset_right = 320.0
+offset_bottom = 480.0
+theme = ExtResource("22_osu8l")
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Walk" type="AudioStreamPlayer" parent="."]
+volume_db = -2.5
+
+[node name="Chop" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
+
+[connection signal="area_entered" from="StateMachine/ChoppingLog/Minigame1/Marker/Area2D" to="StateMachine/ChoppingLog" method="_on_marker_area_entered"]
+[connection signal="area_exited" from="StateMachine/ChoppingLog/Minigame1/Marker/Area2D" to="StateMachine/ChoppingLog" method="_on_marker_area_exited"]
+[connection signal="area_entered" from="Interaction" to="." method="_on_interaction_area_entered"]
+[connection signal="area_exited" from="Interaction" to="." method="_on_interaction_area_exited"]
+
+[editable path="player"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cptflw41chw8o"]
+
+[ext_resource type="FontFile" uid="uid://2di73dx7uxpm" path="res://data/player/Slabo_27px/Slabo27px-Regular.ttf" id="1_vu65y"]
+[ext_resource type="Texture2D" uid="uid://cc1gedc4362gm" path="res://data/player/results.png" id="2_dmlal"]
+
+[node name="Keybind" type="Label3D"]
+visible = false
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+outline_modulate = Color(0, 0, 0, 0.247059)
+text = "Insert"
+font = ExtResource("1_vu65y")
+
+[node name="Background" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.067, 0, 0, 0, 0.1, 0, 0, -0.008)
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+render_priority = -1
+texture = ExtResource("2_dmlal")

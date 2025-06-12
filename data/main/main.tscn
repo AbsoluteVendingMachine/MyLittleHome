@@ -1,0 +1,52 @@
+[gd_scene load_steps=11 format=3 uid="uid://ci63p4f6teces"]
+
+[ext_resource type="Script" path="res://data/main/main.gd" id="1_xmxmu"]
+[ext_resource type="AudioStream" uid="uid://bkbretanm21yt" path="res://data/sfx/catch_fish.wav" id="3_opaaq"]
+[ext_resource type="AudioStream" uid="uid://b0vaoy2qk73aa" path="res://data/sfx/correct.wav" id="4_ep0e3"]
+[ext_resource type="AudioStream" uid="uid://0k6m8g1ndwok" path="res://data/sfx/wrong.wav" id="5_0ixy6"]
+[ext_resource type="AudioStream" uid="uid://cysxxjiqkda63" path="res://data/sfx/stomp.wav" id="6_o3rc1"]
+[ext_resource type="AudioStream" uid="uid://bsi52shsuu01w" path="res://data/sfx/swipe.wav" id="7_ck17g"]
+[ext_resource type="PackedScene" uid="uid://donalytvtu1pw" path="res://data/intro/intro.tscn" id="8_cjc0e"]
+[ext_resource type="AudioStream" uid="uid://c0bu1k1doyaqk" path="res://data/sfx/walk_out.wav" id="8_qf4dv"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_v0hpq"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("3_opaaq")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0tvth"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("7_ck17g")
+stream_0/weight = 1.0
+
+[node name="Main" type="Node3D" groups=["main"]]
+script = ExtResource("1_xmxmu")
+
+[node name="SoundEffects" type="Node" parent="."]
+
+[node name="CatchFish" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = SubResource("AudioStreamRandomizer_v0hpq")
+volume_db = -5.0
+
+[node name="Correct" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("4_ep0e3")
+volume_db = -2.0
+
+[node name="Wrong" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("5_0ixy6")
+volume_db = -1.0
+
+[node name="Stomp" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("6_o3rc1")
+pitch_scale = 0.5
+
+[node name="Swipe" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = SubResource("AudioStreamRandomizer_0tvth")
+
+[node name="WalkOut" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("8_qf4dv")
+volume_db = -2.0
+
+[node name="Intro" parent="." instance=ExtResource("8_cjc0e")]

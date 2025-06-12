@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dejcjli8q5uia"]
+
+[ext_resource type="Script" path="res://data/log/log.gd" id="1_bc5h6"]
+[ext_resource type="PackedScene" uid="uid://dami1yui5ni7p" path="res://data/outside/wood.blend" id="2_qvqmd"]
+[ext_resource type="PackedScene" uid="uid://cptflw41chw8o" path="res://data/keybind/keybind.tscn" id="2_yxbob"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eo3sa"]
+
+[node name="Area3D" type="Area3D" groups=["log"]]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+script = ExtResource("1_bc5h6")
+
+[node name="wood" parent="." instance=ExtResource("2_qvqmd")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="TemporaryModel" type="CSGBox3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_eo3sa")
+
+[node name="Keybind" parent="." instance=ExtResource("2_yxbob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+text = "A"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

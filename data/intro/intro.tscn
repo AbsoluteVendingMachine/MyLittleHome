@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://donalytvtu1pw"]
+
+[ext_resource type="Texture2D" uid="uid://yj45legdilsc" path="res://data/intro/intro.png" id="1_5eimg"]
+[ext_resource type="Script" path="res://data/intro/intro.gd" id="1_rujcy"]
+
+[sub_resource type="Animation" id="Animation_0n5ua"]
+resource_name = "Intro"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 3.5, 4),
+"transitions": PackedFloat32Array(4.2871, 1, 6.49802, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"send_to_title_screen"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5l4io"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0sfq"]
+_data = {
+"Intro": SubResource("Animation_0n5ua"),
+"RESET": SubResource("Animation_5l4io")
+}
+
+[node name="Intro" type="CanvasLayer"]
+script = ExtResource("1_rujcy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j0sfq")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(160, 240)
+texture = ExtResource("1_5eimg")

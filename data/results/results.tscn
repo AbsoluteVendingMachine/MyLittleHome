@@ -1,0 +1,173 @@
+[gd_scene load_steps=9 format=3 uid="uid://cshiyu1mdhh26"]
+
+[ext_resource type="Script" path="res://data/results/results.gd" id="1_807uw"]
+[ext_resource type="Theme" uid="uid://3yh3abufhfub" path="res://data/text_theme.tres" id="2_yue7d"]
+[ext_resource type="Texture2D" uid="uid://cc1gedc4362gm" path="res://data/player/results.png" id="3_n5w1f"]
+[ext_resource type="PackedScene" uid="uid://b33fe1roseji2" path="res://data/transition/transition.tscn" id="4_qgvr1"]
+
+[sub_resource type="Animation" id="Animation_4fd8u"]
+resource_name = "In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-320, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o2rxq"]
+resource_name = "Out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(320, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"next_day"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7y4cm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-320, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mta3r"]
+_data = {
+"In": SubResource("Animation_4fd8u"),
+"Out": SubResource("Animation_o2rxq"),
+"RESET": SubResource("Animation_7y4cm")
+}
+
+[node name="Results" type="CanvasLayer"]
+script = ExtResource("1_807uw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = -320.0
+offset_bottom = 480.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 32
+text = "Results:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 24
+text = "Day XX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Time completed: 0:40"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Points" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Total: XXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LogPoints" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Log points: XXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishPoints" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Fish points: XXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BoxPoints" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Box points: XXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimePoints" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Time points: XXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimePenalty" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Time penalty: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Instruction" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yue7d")
+theme_override_font_sizes/font_size = 16
+text = "Press A to go to next day"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mta3r")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(160, 240)
+texture = ExtResource("3_n5w1f")
+
+[node name="Transition" parent="." instance=ExtResource("4_qgvr1")]
+waiting_for_activation = true

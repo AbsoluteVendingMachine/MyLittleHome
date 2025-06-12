@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://3yh3abufhfub"]
+
+[ext_resource type="FontFile" uid="uid://2di73dx7uxpm" path="res://data/player/Slabo_27px/Slabo27px-Regular.ttf" id="1_ik2vk"]
+
+[resource]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0.335251, 0.13534, 0.052059, 1)
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = ExtResource("1_ik2vk")
